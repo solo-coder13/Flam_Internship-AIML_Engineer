@@ -1,2 +1,2 @@
 # Flam-Internship
-aiml intern proj
+aiml intern project
