@@ -1,10 +1,12 @@
 {
     "cSpell.words": [
         "aiml",
+        "BGRA",
         "ckpt",
         "fromarray",
         "getextrema",
         "imread",
+        "imwrite",
         "matplotlib",
         "mediapipe",
         "mobilenet",
