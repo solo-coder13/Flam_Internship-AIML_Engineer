@@ -4,6 +4,7 @@
         "fromarray",
         "imread",
         "matplotlib",
+        "mediapipe",
         "numpy",
         "opencv",
         "rembg",
