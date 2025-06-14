@@ -1,21 +1,39 @@
+# main.py
+
+from PIL import Image
 from utils.shadow_utils import generate_shadow
 from utils.lighting_utils import estimate_light_direction
 from utils.color_utils import harmonize_colors
-from PIL import Image
+from utils.background_remover import remove_background  # ✅ NEW
+from utils.background_remover import remove_background
 
-# Load background and person
-bg = Image.open('assets/background/street_scene.jpg')
-person = Image.open('assets/person/person_no_bg.png')
+import os
 
-# Estimate light direction
+# ---- Step 1: Remove background automatically ----
+raw_path = "assets/person/raw_person.jpg"
+no_bg_path = "assets/person/person_no_bg.png"
+
+remove_background(raw_path, no_bg_path)
+
+# ---- Step 2: Load background and extracted person image ----
+bg = Image.open("assets/background/street_scene.jpg")
+person = Image.open(no_bg_path)
+
+# ---- Step 3: Estimate light direction ----
 light_dir = estimate_light_direction(bg)
 
-# Generate realistic shadow
+# ---- Step 4: Generate shadow ----
 person_with_shadow = generate_shadow(person, light_dir)
 
-# Color match person to background
+# ---- Step 5: Match color tone ----
 harmonized_person = harmonize_colors(person_with_shadow, bg)
 
-# Composite final image
-bg.paste(harmonized_person, (300, 150), harmonized_person)  # Adjust position
-bg.save('outputs/final_composite.png')
+# ---- Step 6: Composite onto background ----
+bg_copy = bg.copy()
+position = (250, 150)  # Adjust as needed
+bg_copy.paste(harmonized_person, position, harmonized_person)
+
+# ---- Step 7: Save final image ----
+output_path = "outputs/final_composite.png"
+bg_copy.save(output_path)
+print(f" Final image saved to: {output_path}")
