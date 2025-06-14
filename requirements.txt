@@ -1,6 +1,7 @@
 numpy
 opencv-python
 Pillow
+mediapipe
 scikit-image
 matplotlib
 torch              # if using SAM or U-Net
