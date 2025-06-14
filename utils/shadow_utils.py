@@ -1,12 +1,26 @@
 from PIL import Image, ImageFilter
+from PIL import ImageOps
 
-def generate_shadow(person_img, light_dir):
-    # Clone person
-    shadow = person_img.convert('L').point(lambda x: min(x, 50))  # make darker
-    shadow = shadow.filter(ImageFilter.GaussianBlur(radius=8))   # soft shadow
-    # Add offset based on light direction (simplified)
-    offset = (int(light_dir[0] * 20), int(light_dir[1] * 20))
-    base = Image.new("RGBA", person_img.size, (0, 0, 0, 0))
-    base.paste(shadow, offset, shadow)
-    base.paste(person_img, (0, 0), person_img)
-    return base
+def generate_shadow(person_img, light_dir=(1, -1), blur=10, opacity=80):
+    # Convert person image to grayscale alpha mask
+    alpha = person_img.split()[-1]
+    
+    # Create the shadow from alpha
+    shadow = Image.new("RGBA", person_img.size, (0, 0, 0, 0))
+    black_shadow = Image.new("RGBA", person_img.size, (0, 0, 0, opacity))
+    shadow.paste(black_shadow, mask=alpha)
+    
+    # Offset shadow based on light direction
+    offset_x = int(light_dir[0] * 20)
+    offset_y = int(light_dir[1] * 20)
+    shadow = shadow.transform(
+        shadow.size,
+        Image.AFFINE,
+        (1, 0, offset_x, 0, 1, offset_y),
+        resample=Image.BILINEAR,
+    )
+    
+    # Blur to create soft shadow
+    shadow = shadow.filter(ImageFilter.GaussianBlur(radius=blur))
+    
+    return shadow
