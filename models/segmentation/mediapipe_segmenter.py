@@ -5,9 +5,9 @@ import numpy as np
 import os
 
 def remove_background_mediapipe(input_path, output_path):
-    if os.path.exists(output_path):
-        print("✅ Segmented image already exists.")
-        return
+    #if os.path.exists(output_path):
+    #    print("✅ Segmented image already exists.")
+    #    return
 
     mp_selfie_segmentation = mp.solutions.selfie_segmentation
     image = cv2.imread(input_path)

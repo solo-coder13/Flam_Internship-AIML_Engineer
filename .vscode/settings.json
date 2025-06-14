@@ -15,6 +15,7 @@
         "numpy",
         "opencv",
         "putalpha",
+        "reboost",
         "rembg",
         "scikit",
         "skimage"
