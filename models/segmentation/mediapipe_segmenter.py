@@ -17,7 +17,7 @@ def remove_background_mediapipe(input_path, output_path):
         result = segmenter.process(rgb_image)
 
         mask = result.segmentation_mask
-        condition = mask > 0.5
+        condition = mask > 0.6  # instead of 0.5
 
         bg = np.zeros(image.shape, dtype=np.uint8)
         bg[:] = [0, 0, 0]  # Black background

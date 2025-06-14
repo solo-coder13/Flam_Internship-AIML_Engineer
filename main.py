@@ -7,49 +7,43 @@ from utils.color_utils import harmonize_colors
 from models.segmentation.mediapipe_segmenter import remove_background_mediapipe
 import os
 
-# ---- Step 1: Remove background automatically ----
+# Step 1: Background removal
 raw_path = "assets/person/raw_person.jpg"
 no_bg_path = "assets/person/person_no_bg.png"
 remove_background_mediapipe(raw_path, no_bg_path)
 
-# ---- Step 2: Load background and extracted person image ----
-position = (250, 100)  # Adjust as needed
+# Step 2: Load images
+position = (250, 100)
 bg = Image.open("assets/background/street_scene.jpg")
 person = Image.open(no_bg_path)
 
-# ---- Step 3: Estimate light direction ----
+# Step 3: Estimate lighting
 light_dir = estimate_light_direction(bg)
 
-# ---- Step 4: Generate shadow ----
+# Step 4: Generate shadow only (separate from person)
 shadow = generate_shadow(person, light_dir)
 
-# ---- Step 5: Match color tone + feather edges ----
-def feather_edges(img, feather_radius=1):  # Reduce from 2 to 1
+# Step 5: Color harmonization (apply to full-opacity person only)
+def feather_edges(img, feather_radius=1):
     alpha = img.split()[-1]
-    soft_alpha = alpha.filter(ImageFilter.GaussianBlur(radius=feather_radius))
-    img.putalpha(soft_alpha)
+    blurred_alpha = alpha.filter(ImageFilter.GaussianBlur(radius=feather_radius))
+
+    # Restore opacity around central regions
+    boosted_alpha = blurred_alpha.point(lambda x: min(255, int(x * 2)))  # Sharper edges
+    img.putalpha(boosted_alpha)
     return img
-person_with_shadow = generate_shadow(person, light_dir)
-harmonized_person = harmonize_colors(person, bg)  # Use original person image
 
-# ---- Step 6: Composite onto background ----
-bg_with_shadow = bg.copy()
-bg_with_shadow.paste(shadow, position, shadow)
-bg_with_shadow.paste(harmonized_person, position, harmonized_person)
-# Paste shadow first
-bg_with_shadow.paste(person_with_shadow, position, person_with_shadow)  # This includes shadow + silhouette
 
-# Paste harmonized person on top
-bg_with_shadow.paste(harmonized_person, position, harmonized_person)  # Full color person
+# Convert person to RGB before harmonization
+harmonized_person = harmonize_colors(person, bg)
+harmonized_person = feather_edges(harmonized_person)
 
-harmonized_person = feather_edges(harmonized_person, feather_radius=1)
-
-# Debugging images
-harmonized_person.save("outputs/debug_harmonized_person.png")
-person_with_shadow.save("outputs/debug_person_with_shadow.png")
-print("Alpha max value:", harmonized_person.split()[-1].getextrema())
-
-# ---- Step 7: Save final image ----
+# Step 6: Paste shadow and person
+bg_composite = bg.copy()
+bg_composite.paste(shadow, position, shadow)
+bg_composite.paste(harmonized_person, position, harmonized_person)
+# Step 7: Save debug + final outputs
 output_path = "outputs/final_composite.png"
-bg_with_shadow.save(output_path)
+bg_composite.save(output_path)
 print(f"✅ Final photorealistic image saved to: {output_path}")
+print("Alpha extrema (person):", harmonized_person.split()[-1].getextrema())
