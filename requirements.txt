@@ -1,0 +1,8 @@
+numpy
+opencv-python
+Pillow
+scikit-image
+matplotlib
+torch              # if using SAM or U-Net
+transformers       # optional for any DL models
+rembg              # for background removal (CLI)
