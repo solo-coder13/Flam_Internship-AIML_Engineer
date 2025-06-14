@@ -57,3 +57,24 @@ composite.paste(harmonized, position, harmonized)
 output_path = "outputs/final_composite.png"
 composite.save(output_path)
 print(f"✅ Final photorealistic image saved at: {output_path}")
+# main.py
+
+from PIL import Image
+
+# Step 1: Load images
+person = Image.open("assets/person/person_no_bg.png").convert("RGBA")
+background = Image.open("assets/background/street_scene.jpg").convert("RGBA")
+
+# Step 2: Resize the person to match scene scale
+person_resized = person.resize((200, 420))  # Adjust as needed
+
+# Step 3: Choose the position in the background
+position = (500, 300)  # (x, y)
+
+# Step 4: Composite person into scene
+composite = background.copy()
+composite.paste(person_resized, position, person_resized)
+
+# Step 5: Save output
+composite.save("outputs/final_composite_realistic.png")
+print("✅ Final image saved: outputs/final_composite_realistic.png")
