@@ -1,5 +1,10 @@
 {
     "cSpell.words": [
-        "aiml"
+        "aiml",
+        "matplotlib",
+        "numpy",
+        "opencv",
+        "rembg",
+        "scikit"
     ]
 }
