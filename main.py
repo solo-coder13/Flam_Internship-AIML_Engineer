@@ -13,7 +13,11 @@ import os
 raw_path = "assets/person/raw_person.jpg"
 no_bg_path = "assets/person/person_no_bg.png"
 
-remove_background(raw_path, no_bg_path)
+from models.segmentation.mediapipe_segmenter import remove_background_mediapipe
+
+# Use ML-based MediaPipe segmentation
+remove_background_mediapipe("assets/person/raw_person.jpg", "assets/person/person_no_bg.png")
+
 
 # ---- Step 2: Load background and extracted person image ----
 bg = Image.open("assets/background/street_scene.jpg")

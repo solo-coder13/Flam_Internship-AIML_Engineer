@@ -2,6 +2,7 @@
     "cSpell.words": [
         "aiml",
         "fromarray",
+        "imread",
         "matplotlib",
         "numpy",
         "opencv",
