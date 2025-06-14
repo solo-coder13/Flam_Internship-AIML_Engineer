@@ -1,11 +1,15 @@
 {
     "cSpell.words": [
         "aiml",
+        "ckpt",
         "fromarray",
         "getextrema",
         "imread",
         "matplotlib",
         "mediapipe",
+        "mobilenet",
+        "mobilenetv",
+        "modnet",
         "numpy",
         "opencv",
         "putalpha",

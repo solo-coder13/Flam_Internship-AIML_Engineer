@@ -1,0 +1,2 @@
+modnet_ckpt = "models/modnet/weights/modnet_photographic_portrait_matting.ckpt"
+modnet.load_state_dict(torch.load(ckpt_path, map_location=device))
