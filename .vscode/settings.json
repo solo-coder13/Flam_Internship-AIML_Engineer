@@ -1,10 +1,12 @@
 {
     "cSpell.words": [
         "aiml",
+        "fromarray",
         "matplotlib",
         "numpy",
         "opencv",
         "rembg",
-        "scikit"
+        "scikit",
+        "skimage"
     ]
 }
