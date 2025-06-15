@@ -12,3 +12,13 @@ This project implements an AI-driven pipeline to **seamlessly integrate a person
 - Histogram-based color harmonization
 - Edge feathering and perspective correction
 - Final image composition with realistic visual alignment
+
+### Contributing
+
+1. Fork the repository and Create a new branch (`git checkout -b feature-branch`).
+2. Make your changes and Commit your changes (`git commit -am 'Add new feature'`).
+3. Push to the branch (`git push origin feature-branch`) and Create a new Pull Request.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
