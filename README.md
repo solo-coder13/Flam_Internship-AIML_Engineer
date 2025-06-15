@@ -1,4 +1,4 @@
-# Flam Assignment: Seamlessly Integrating a Person Into a Scene
+# Flam Assignment: Seamlessly Integrating a Person into a Scene Using Hybrid DL Model (U²-Net + MODNet)
 
 ### Objective
 This project implements an AI-driven pipeline to **seamlessly integrate a person into a background scene**, producing a **photorealistic final composite image**. The pipeline addresses real-world challenges like **shadow casting**, **lighting direction**, **color harmonization**, and **edge blending**, ensuring the output looks naturally captured.
