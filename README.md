@@ -2,7 +2,7 @@
 
 ### Objective
 This project implements an AI-driven pipeline to **seamlessly integrate a person into a background scene**, producing a **photorealistic final composite image**. The pipeline addresses real-world challenges like **shadow casting**, **lighting direction**, **color harmonization**, and **edge blending**, ensuring the output looks naturally captured.
-
+![Image](https://github.com/user-attachments/assets/67bfafbc-eb2b-48fe-9330-b1833537a217)
 
 ### Key Features
 
